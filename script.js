@@ -6,12 +6,13 @@ function poNacteni() {
   cnv = document.getElementById("platno");
   ctx = cnv.getContext("2d");
 
-  setInterval(kresleni, 100);
+  setInterval(kresleni, 10);
 }
 
+const KRUH_POLOMER = 50;
 let kruhX = 300;
 let kruhY = 80;
-let kruhRychlostX = 4;
+let kruhRychlostX = -4;
 
 function kresleni() {
   ctx.clearRect(0, 0, cnv.width, cnv.height);
@@ -31,9 +32,15 @@ function kresleni() {
 
   //kruh
   kruhX = kruhX + kruhRychlostX;
+  if (kruhX - KRUH_POLOMER <= 0) {
+    kruhRychlostX = -1 * kruhRychlostX;
+  }
+  if (kruhX + KRUH_POLOMER >= cnv.width) {
+    kruhRychlostX = -1 * kruhRychlostX;
+  }
   ctx.beginPath();
   ctx.fillStyle = "blue";
-  ctx.arc(kruhX, kruhY, 50, 0, 2*Math.PI);
+  ctx.arc(kruhX, kruhY, KRUH_POLOMER, 0, 2*Math.PI);
   ctx.fill();
 
 }

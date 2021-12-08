@@ -1,7 +1,8 @@
 let cnv,ctx;
 
 function poNacteni() {
-  document.addEventListener("keydown", stiskKlavesyDolu);
+  document.addEventListener("keydown", stiskKlavesy);
+  document.addEventListener("keyup", pusteniKlavesy);
 
   cnv = document.getElementById("platno");
   ctx = cnv.getContext("2d");
@@ -14,6 +15,8 @@ let kruhX = 300;
 let kruhY = 80;
 let kruhRychlostX = -4;
 
+let hracY = 200;
+
 function kresleni() {
   ctx.clearRect(0, 0, cnv.width, cnv.height);
 
@@ -24,10 +27,16 @@ function kresleni() {
   ctx.lineTo(cnv.width, cnv.height);
   ctx.stroke();
 
-  //plny obdelnik
+  //plny obdelnik ("hrac")
+  if (hracNahoru) {
+    hracY = hracY - 2;
+  }
+  if (hracDolu) {
+    hracY = hracY + 2;
+  }
   ctx.beginPath();
   ctx.fillStyle = "green";
-  ctx.rect(10, 200, 100, 60);
+  ctx.rect(10, hracY, 100, 60);
   ctx.fill();
 
   //kruh
@@ -45,9 +54,23 @@ function kresleni() {
 
 }
 
-function stiskKlavesyDolu(udalost) {
-  //console.log(udalost);
-  if (udalost.key == "Enter") {
-    odesliZpravu();
+let hracNahoru = false;
+let hracDolu = false;
+
+function stiskKlavesy(udalost) {
+  if (udalost.key == "w") {
+    hracNahoru = true;
+  }
+  if (udalost.key == "s") {
+    hracDolu = true;
+  }
+}
+
+function pusteniKlavesy(udalost) {
+  if (udalost.key == "w") {
+    hracNahoru = false;
+  }
+  if (udalost.key == "s") {
+    hracDolu = false;
   }
 }

@@ -11,11 +11,9 @@ function poPripojeni(ws) {
   ws.on("message", zpracujZpravu);
 }
 
-let pocitadlo = 0;
 function rozesliStav() {
-  pocitadlo++;
   //rozeslani stavu vsem pripojenym prohlizecum
-  let json = JSON.stringify(pocitadlo);
+  let json = JSON.stringify(hraci);
   wss.clients.forEach(function each(client) {
     client.send(json);
   });

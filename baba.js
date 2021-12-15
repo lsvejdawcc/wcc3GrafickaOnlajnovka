@@ -12,6 +12,21 @@ function poPripojeni(ws) {
 }
 
 function rozesliStav() {
+  //posun hracu
+  for (let h of hraci) {
+    if (h.nahoru) {
+        h.y = h.y - 2;
+    }
+    if (h.dolu) {
+        h.y = h.y + 2;
+    }
+    if (h.vlevo) {
+        h.x = h.x - 2;
+    }
+    if (h.vpravo) {
+        h.x = h.x + 2;
+    }
+  }      
   //rozeslani stavu vsem pripojenym prohlizecum
   let json = JSON.stringify(hraci);
   wss.clients.forEach(function each(client) {

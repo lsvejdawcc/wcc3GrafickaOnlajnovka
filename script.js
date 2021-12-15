@@ -7,7 +7,7 @@ function poNacteni() {
   cnv = document.getElementById("platno");
   ctx = cnv.getContext("2d");
 
-  setInterval(kresleni, 10);
+  //setInterval(kresleni, 10);
 }
 
 const KRUH_POLOMER = 50;

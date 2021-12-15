@@ -1,6 +1,7 @@
 const http = require("http");
 const fs = require("fs"); //prace se soubory
 const url = require("url"); //prace s adresou požadavku, parametry,...
+const inicializujHru = require("./baba.js").inicializuj;
 
 function zpracovaniPozadavku(pozadavek, odpoved) {
   console.log("url: " + pozadavek.url);
@@ -30,3 +31,5 @@ function zpracovaniPozadavku(pozadavek, odpoved) {
 let srv = http.createServer(zpracovaniPozadavku);
 srv.listen(8080);
 console.log("Aplikace běží na http://localhost:8080...");
+
+inicializujHru(srv);

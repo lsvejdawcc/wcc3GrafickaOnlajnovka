@@ -64,6 +64,7 @@ function stiskKlavesy(udalost) {
   if (udalost.key == "s") {
     hracDolu = true;
   }
+  posun();
 }
 
 function pusteniKlavesy(udalost) {
@@ -73,6 +74,7 @@ function pusteniKlavesy(udalost) {
   if (udalost.key == "s") {
     hracDolu = false;
   }
+  posun();
 }
 
 const USERID = Date.now().toString(16); //nahodne, ale "unikatni"
@@ -97,4 +99,15 @@ function pripojit() {
   obj.barva = document.getElementById("barva").value;
   connection.send(JSON.stringify(obj));
 
+}
+
+function posun() {
+  let obj = {};
+  obj.uid = USERID;
+  obj.akce = "posun";
+  obj.nahoru = hracNahoru;
+  obj.dolu = hracDolu;
+  obj.vlevo = false;
+  obj.vlpravo = false;
+  connection.send(JSON.stringify(obj));
 }

@@ -25,6 +25,14 @@ function zpracujZpravu(z) {
   let o = JSON.parse(z);
   console.log(o);
   if (o.akce == "novyhrac") {
+/*
+{
+  "uid": "nmcbzxmbc",
+  "akce": "novyhrac",
+  "jmeno": "Bobik",
+  "barva": "green"
+}
+*/      
     let h = {};
     h.uid = o.uid;
     h.jmeno = o.jmeno;
@@ -32,9 +40,32 @@ function zpracujZpravu(z) {
     //stred hrace 
     h.x = Math.floor(600 * Math.random()); //nahodne cislo od 0 do 600
     h.y = Math.floor(400 * Math.random()); //nahodne cislo od 0 do 400
+    h.nahoru = false;
+    h.dolu = false;
+    h.vlevo = false;
+    h.vpravo = false;
     hraci.push(h);
   }
   if (o.akce == "posun") {
+/*
+{
+  "uid": "nmcbzxmbc",
+  "akce": "posun",
+  "nahoru": true,
+  "dolu": false,
+  "vlevo": false,
+  "vpravo": false
+}
+*/      
+    for (let h of hraci) {
+        if (h.uid == o.uid) {
+            h.nahoru = o.nahoru;
+            h.dolu = o.dolu;
+            h.vlevo = o.vlevo;
+            h.vpravo = o.vpravo;
+            break;
+        }
+    }
       
   }
 }

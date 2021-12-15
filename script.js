@@ -74,3 +74,27 @@ function pusteniKlavesy(udalost) {
     hracDolu = false;
   }
 }
+
+const USERID = Date.now().toString(16); //nahodne, ale "unikatni"
+const url = 'ws://localhost:8080/';
+const connection = new WebSocket(url);
+connection.onopen = () => {
+};
+connection.onmessage = e => {
+    console.log(e.data);
+    //tady bude zobrazeni stavu hry v prohlizeci
+};
+connection.onerror = error => {
+    console.log(`WebSocket error: ${JSON.stringify(error, 
+         ["message", "arguments", "type", "name"])}`);
+};
+
+function pripojit() {
+  let obj = {};
+  obj.uid = USERID;
+  obj.akce = "novyhrac";
+  obj.jmeno = document.getElementById("jmeno").value;
+  obj.barva = document.getElementById("barva").value;
+  connection.send(JSON.stringify(obj));
+
+}

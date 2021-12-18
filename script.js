@@ -78,7 +78,7 @@ function pusteniKlavesy(udalost) {
 }
 
 const USERID = Date.now().toString(16); //nahodne, ale "unikatni"
-const url = 'ws://localhost:8080/';
+const url = location.href.replace("http", "ws");
 const connection = new WebSocket(url);
 connection.onopen = () => {
 };

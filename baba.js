@@ -34,10 +34,13 @@ function rozesliStav() {
     }
   }      
   //kontrola predani baby
+  let cas = Date.now(); //v milisekundach
   for (let h of hraci) {
     if (h.uid == hracBaba.uid) continue; //preskocime kontrolu hrace s babou
+    if (h.imunitaDo > cas) continue; //hrac ma po predani baby imunitu
     if (vzdalenostDvouBodu(h.x,h.y,hracBaba.x,hracBaba.y) <= h.r + hracBaba.r) {
       hracBaba.maBabu = false;
+      hracBaba.imunitaDo = cas + 3000; //3s bude mit imunitu
       h.maBabu = true;
       hracBaba = h;
       break;
@@ -79,6 +82,7 @@ function zpracujZpravu(z) {
     h.vlevo = false;
     h.vpravo = false;
     h.maBabu = false;
+    h.imunitaDo = 0;
     if (hraci.length == 0) {
       h.maBabu = true;
       hracBaba = h;

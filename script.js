@@ -27,6 +27,13 @@ function kresleni(data) {
     ctx.arc(hrac.x, hrac.y, hrac.r, 0, 2*Math.PI);
     ctx.fill();
 
+    if (hrac.maBabu) {
+      ctx.beginPath();
+      ctx.strokeStyle = "yellow";
+      ctx.arc(hrac.x, hrac.y, hrac.r, 0, 2*Math.PI);
+      ctx.stroke();
+    }
+
     ctx.fillText(hrac.jmeno, hrac.x + hrac.r, hrac.y);
   }
 

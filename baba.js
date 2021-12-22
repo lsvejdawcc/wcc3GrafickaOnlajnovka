@@ -36,6 +36,7 @@ function rozesliStav() {
 
 const POLOMER_HRACE = 10;
 let hraci = []; //seznam hracu
+let hracBaba;
 function zpracujZpravu(z) {
   //console.log(z.toString());
   let o = JSON.parse(z);
@@ -61,6 +62,11 @@ function zpracujZpravu(z) {
     h.dolu = false;
     h.vlevo = false;
     h.vpravo = false;
+    h.maBabu = false;
+    if (hraci.length == 0) {
+      h.maBabu = true;
+      hracBaba = h;
+    }
     hraci.push(h);
   }
   if (o.akce == "posun") {

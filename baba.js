@@ -11,6 +11,12 @@ function poPripojeni(ws) {
   ws.on("message", zpracujZpravu);
 }
 
+function vzdalenostDvouBodu(x1,y1,x2,y2) {
+  let dx = x1 - x2;
+  let dy = y1 - y2;
+  return Math.sqrt(dx*dx + dy*dy);
+}
+
 function rozesliStav() {
   //posun hracu
   for (let h of hraci) {
@@ -27,6 +33,16 @@ function rozesliStav() {
         h.x = h.x + 2;
     }
   }      
+  //kontrola predani baby
+  for (let h of hraci) {
+    if (h.uid == hracBaba.uid) continue; //preskocime kontrolu hrace s babou
+    if (vzdalenostDvouBodu(h.x,h.y,hracBaba.x,hracBaba.y) <= h.r + hracBaba.r) {
+      hracBaba.maBabu = false;
+      h.maBabu = true;
+      hracBaba = h;
+      break;
+    }
+  }
   //rozeslani stavu vsem pripojenym prohlizecum
   let json = JSON.stringify(hraci);
   wss.clients.forEach(function each(client) {

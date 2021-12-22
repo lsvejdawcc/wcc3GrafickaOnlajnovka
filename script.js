@@ -17,40 +17,15 @@ let kruhRychlostX = -4;
 
 let hracY = 200;
 
-function kresleni() {
+function kresleni(data) {
   ctx.clearRect(0, 0, cnv.width, cnv.height);
 
-  ctx.beginPath();
-  ctx.lineWidth = 5;
-  ctx.strokeStyle = "red";
-  ctx.moveTo(0,0);
-  ctx.lineTo(cnv.width, cnv.height);
-  ctx.stroke();
-
-  //plny obdelnik ("hrac")
-  if (hracNahoru) {
-    hracY = hracY - 2;
+  for (let hrac of data) { //data obsahuje seznam hracu
+    ctx.beginPath();
+    ctx.fillStyle = hrac.barva;
+    ctx.arc(hrac.x, hrac.y, hrac.r, 0, 2*Math.PI);
+    ctx.fill();
   }
-  if (hracDolu) {
-    hracY = hracY + 2;
-  }
-  ctx.beginPath();
-  ctx.fillStyle = "green";
-  ctx.rect(10, hracY, 100, 60);
-  ctx.fill();
-
-  //kruh
-  kruhX = kruhX + kruhRychlostX;
-  if (kruhX - KRUH_POLOMER <= 0) {
-    kruhRychlostX = -1 * kruhRychlostX;
-  }
-  if (kruhX + KRUH_POLOMER >= cnv.width) {
-    kruhRychlostX = -1 * kruhRychlostX;
-  }
-  ctx.beginPath();
-  ctx.fillStyle = "blue";
-  ctx.arc(kruhX, kruhY, KRUH_POLOMER, 0, 2*Math.PI);
-  ctx.fill();
 
 }
 
@@ -97,8 +72,8 @@ const connection = new WebSocket(url);
 connection.onopen = () => {
 };
 connection.onmessage = e => {
-    console.log(e.data);
-    //tady bude zobrazeni stavu hry v prohlizeci
+    //console.log(e.data);
+    kresleni(JSON.parse(e.data));
 };
 connection.onerror = error => {
     console.log(`WebSocket error: ${JSON.stringify(error, 
@@ -121,7 +96,7 @@ function posun() {
   obj.akce = "posun";
   obj.nahoru = hracNahoru;
   obj.dolu = hracDolu;
-  obj.vlevo = false;
-  obj.vlpravo = false;
+  obj.vlevo = hracVlevo;
+  obj.vpravo = hracVpravo;
   connection.send(JSON.stringify(obj));
 }

@@ -6,6 +6,7 @@ function poNacteni() {
 
   cnv = document.getElementById("platno");
   ctx = cnv.getContext("2d");
+  ctx.font = "12px Verdana"; //pouzivam pri kresleni jen tento font
 
   //setInterval(kresleni, 10);
 }
@@ -25,6 +26,8 @@ function kresleni(data) {
     ctx.fillStyle = hrac.barva;
     ctx.arc(hrac.x, hrac.y, hrac.r, 0, 2*Math.PI);
     ctx.fill();
+
+    ctx.fillText(hrac.jmeno, hrac.x + hrac.r, hrac.y);
   }
 
 }

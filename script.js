@@ -56,6 +56,8 @@ function kresleni() {
 
 let hracNahoru = false;
 let hracDolu = false;
+let hracVlevo = false;
+let hracVpravo = false;
 
 function stiskKlavesy(udalost) {
   if (udalost.key == "w") {
@@ -63,6 +65,12 @@ function stiskKlavesy(udalost) {
   }
   if (udalost.key == "s") {
     hracDolu = true;
+  }
+  if (udalost.key == "a") {
+    hracVlevo = true;
+  }
+  if (udalost.key == "d") {
+    hracVpravo = true;
   }
   posun();
 }
@@ -73,6 +81,12 @@ function pusteniKlavesy(udalost) {
   }
   if (udalost.key == "s") {
     hracDolu = false;
+  }
+  if (udalost.key == "a") {
+    hracVlevo = false;
+  }
+  if (udalost.key == "d") {
+    hracVpravo = false;
   }
   posun();
 }

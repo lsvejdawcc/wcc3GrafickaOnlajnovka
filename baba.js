@@ -34,6 +34,7 @@ function rozesliStav() {
   });
 }
 
+const POLOMER_HRACE = 10;
 let hraci = []; //seznam hracu
 function zpracujZpravu(z) {
   //console.log(z.toString());
@@ -55,6 +56,7 @@ function zpracujZpravu(z) {
     //stred hrace 
     h.x = Math.floor(600 * Math.random()); //nahodne cislo od 0 do 600
     h.y = Math.floor(400 * Math.random()); //nahodne cislo od 0 do 400
+    h.r = POLOMER_HRACE;
     h.nahoru = false;
     h.dolu = false;
     h.vlevo = false;
